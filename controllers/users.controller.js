@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const users = require('../models/users.model');
 
@@ -21,7 +22,7 @@ module.exports = {
           result.status = status;
           result.data = err;
        } else {
-          result.status = status;
+          result.status = 'success';
           result.data = user;
        }
        res.status(result.status).send(result);
@@ -39,7 +40,11 @@ module.exports = {
     mongoose.connect(connUrl, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
       users.find({}, (err, users) => {
         if (!err) {
-          res.send(users);
+          let result = {};
+          status = 201;
+          result.result = users;
+          result.status = 'success';
+          res.status(status).send(result);
         } else {
           console.log('Error', err);
         }
@@ -60,7 +65,12 @@ module.exports = {
               bcrypt.compare(password, user[0].password).then(match=>{
                if(match){
                 status = 201;
-                result.status = status;
+                const payload = {user: user[0].name};
+                const options =  { expiresIn: '2d', issuer: 'http://localhost/app/v1'};
+                const secretKey = process.env.JWT_SECRET;
+                const token = jwt.sign(payload, secretKey, options);
+                result.status = 'success';
+                result.token = token;
                 result.result = 'User login successfully';
                } else {
                 status = 401;

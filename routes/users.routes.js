@@ -1,10 +1,11 @@
 const controller = require('../controllers/users.controller');
+const util = require('../util.js');
 
 module.exports = (router) => {
   router.route('/users')
     .post(controller.add)
-    .get(controller.getAll);
+    .get(util.validateToken, controller.getAll);
     ;
   router.route('/login')
-  .post(controller.login);  
+  .post(controller.login);
 };
