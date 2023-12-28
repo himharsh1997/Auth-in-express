@@ -2,11 +2,7 @@
 pipeline {
     agent any
 
-    environment {
-        // Define environment variables as needed
-        NODE_HOME = tool 'NodeJS' // Assumes you have a NodeJS tool configured in Jenkins
-        PATH = "${env.PATH}:${NODE_HOME}/bin"
-    }
+    tools { nodejs 'node' }
 
     stages {
         stage('Checkout') {
