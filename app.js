@@ -16,8 +16,10 @@ app.use(bodyParser.urlencoded({extended: true}))
 const routes = require('./routes/index.routes');
 app.use('/app/v1',routes(router));
 
-app.listen( config.port, ()=>{
-  console.log(`Listening on port ${config.port}`)
+const PORT = 3001;
+
+app.listen(PORT, ()=>{
+  console.log(`Listening on port ${PORT}`)
 })
 
 module.exports = app;
