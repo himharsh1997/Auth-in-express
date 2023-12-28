@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development MONGO_LOCAL_CONN_URL=mongodb://localhost:27017 JWT_SECRET=28cse15 nodemon app.js",
     "prod": "cross-env NODE_ENV=production MONGO_LOCAL_CONN_URL=mongodb://localhost:27017 JWT_SECRET=hjcse15 nodemon app.js",
-    "start": "node server.js"
+    "start": "node app.js"
   },
 
   "author": "Himanshu Joshi",
