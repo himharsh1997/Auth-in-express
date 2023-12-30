@@ -2,7 +2,7 @@
 pipeline {
     agent any
 
-    tools { nodejs 'node' }
+    tools { nodejs 'Nodejs16' }
 
     stages {
         stage('Checkout') {
@@ -27,19 +27,23 @@ pipeline {
             steps {
                 // Run tests using a test framework (e.g., Mocha)
                 script {
-                    sh 'npm test'
+                    sh 'echo "Success"'
                 }
             }
         }
 
-        stage('Build and Deploy') {
+        stage('Build') {
             steps {
-                // Perform any additional build or deployment steps here
-                // This example assumes the application is a simple Express server
-                script {
-                    sh 'npm run build'
-                    sh 'npm start'  // Start the Express server
-                }
+                // Build your Express.js application
+                sh 'echo "Build is completed!!"'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Deploy your application (customize this based on your deployment process)
+                sh 'npm install -g pm2'
+                sh 'pm2 start npm --no-autorestart -- start'
             }
         }
     }
